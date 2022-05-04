@@ -1,0 +1,9 @@
+{
+  "network": "fuji",
+  "address_lucksExecutor": "0x6900ebF88d504A24D546E041Cd0eD2f831b41a1b",
+  "startBlock_lucksExecutor": 18729332,
+  "address_lucksGroup": "0xCa173A974D910FaF06523FcCf38DF4a1C299085b",
+  "startBlock_lucksGroup": 18809338,
+  "address_lucksVRF": "0x0E02C1030fCD59A8D2d81BD56aE2b711579cf9f9",
+  "startBlock_lucksVRF": 18729358
+}

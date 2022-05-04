@@ -1,0 +1,188 @@
+type Task @entity {
+  id: ID!
+  taskId: BigInt!  
+  seller: User!
+
+  chainId: Int!
+  nftChainId: Int!
+  nftContract: Bytes!  
+  tokenIds: [BigInt!]!
+  tokenAmounts: [BigInt!]!
+
+  title: String
+  note: String
+
+  acceptToken: Bytes!
+  
+  status: Int!
+  startTime: BigInt
+  endTime: BigInt!
+
+  targetAmount: BigInt!
+  price: BigInt!
+  amountCollected: BigInt!
+  usdCollected: BigInt
+
+  exclusiveToken: Bytes!
+  exclusiveAmount: BigInt!
+
+  finalNumber: Int
+  lastTicketId: Int
+
+  paymentStrategy: Int
+  depositId: BigInt
+
+  cancelEvent: CancelEvent @derivedFrom(field: "task")
+  closeEvent: CloseEvent @derivedFrom(field: "task")
+  pickWinnerEvent: PickWinnerEvent @derivedFrom(field: "task")
+  winGroup: Group
+
+  image: String
+  media: [Media!]
+
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type _Schema_
+  @fulltext(
+    name: "taskSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Task", fields: [{ name: "title" }] }]
+  )
+
+type User @entity {
+    id: ID! # address of user
+    tasks: [Task!] @derivedFrom(field: "seller") # created task
+    joins: [JoinEvent!] @derivedFrom(field: "buyer")
+    claims: [ClaimEvent!] @derivedFrom(field: "caller")
+    tickets: [Ticket!] @derivedFrom(field: "owner")
+    wins: [PickWinnerEvent!] @derivedFrom(field: "winner")
+    groups: [GroupEvent!] @derivedFrom(field: "user")
+}
+
+type Ticket @entity {
+  id: ID!
+  task: Task!
+  owner: User!
+  number: Int! 
+  count: Int! 
+  joinEvent: JoinEvent
+}
+
+type UserJoinTask @entity {
+  id: ID!
+  user: User!
+  task: Task!
+  joins: [JoinEvent!]!
+}
+
+type Group @entity {
+  id: ID!  
+  groupId: BigInt!
+  owner: User!
+  task: Task!
+  seat: Int!  
+  joins: Int!  
+  members: [GroupEvent!] @derivedFrom(field: "group")
+}
+
+type GroupEvent @entity {
+  id: ID!
+  group: Group!
+  task: Task!  
+  user: User!   
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type JoinEvent @entity {
+  id: ID!
+  task: Task!
+  buyer: User!
+  amount: BigInt!
+  count: BigInt!
+  number: Int!
+  note: String
+  ticket: Ticket @derivedFrom(field: "joinEvent")
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type CancelEvent @entity {
+  id: ID!
+  task: Task!
+  seller: User!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type CloseEvent @entity {
+  id: ID!
+  task: Task!
+  caller: User!
+  status: Int!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type PickWinnerEvent @entity {
+  id: ID!
+  task: Task!
+  winner: User!
+  number: Int!  
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type ClaimEvent @entity {
+  id: ID!
+  task: Task!
+  caller: User!
+  amount: BigInt!
+  acceptToken: Bytes!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+
+type RandomResult @entity {
+  id: ID!
+  task: Task!
+  requestId: BigInt!  
+
+  max: BigInt!
+  randomness: BigInt!
+  number: BigInt!
+  autoPickWinner: Boolean!
+
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type Media @entity {
+  id: ID!
+  token_address: String!
+  token_id: BigInt!
+  block_number_minted: BigInt!
+  owner_of: Bytes!
+  block_number: BigInt!
+  amount: BigInt!
+  contract_type: String!
+  name: String!
+  symbol: String!
+  token_uri: String!
+  metadata: String!
+  synced_at: String!
+  is_valid: Int!
+  syncing: Int!
+  frozen: Int!
+}
+
+type Price @entity {
+  id: ID!
+  chainId: Int!
+  token: String!
+  price: BigInt!
+}

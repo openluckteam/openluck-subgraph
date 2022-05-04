@@ -1,0 +1,9 @@
+{
+  "network": "matic",
+  "address_lucksExecutor": "",
+  "startBlock_lucksExecutor": 0,
+  "address_lucksGroup": "",
+  "startBlock_lucksGroup": 0,
+  "address_lucksVRF": "",
+  "startBlock_lucksVRF": 0
+}

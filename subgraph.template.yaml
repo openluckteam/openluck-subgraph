@@ -1,0 +1,90 @@
+specVersion: 0.0.4
+description: Openluck protocol on {{network}}
+features:
+  - fullTextSearch
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: LucksGroup
+    network: {{network}}
+    source:
+      address: '{{address_lucksGroup}}'
+      abi: LucksGroup
+      startBlock: {{startBlock_lucksGroup}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Group
+        - GroupEvent
+      abis:
+        - name: LucksGroup
+          file: ./abis/LucksGroup.json
+      eventHandlers:
+        - event: CreateGroup(address,uint256,uint256,uint16)
+          handler: handleCreateGroup
+        - event: JoinGroup(address,uint256,uint256)
+          handler: handleJoinGroup
+      file: ./src/mappings/lucksGroup.ts
+  - kind: ethereum/contract
+    name: LucksVRF
+    network: {{network}}
+    source:
+      address: '{{address_lucksVRF}}'
+      abi: LucksVRF
+      startBlock: {{startBlock_lucksVRF}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - RandomResult
+      abis:
+        - name: LucksVRF
+          file: ./abis/LucksVRF.json
+      eventHandlers:
+        - event: ReqRandomNumber(uint256,uint256,uint256)
+          handler: handleReqRandomNumber
+        - event: RspRandomNumber(uint256,uint256,uint256,uint32,bool)
+          handler: handleRspRandomNumber
+      file: ./src/mappings/lucksVRF.ts
+  - kind: ethereum/contract
+    name: LucksExecutor
+    network: {{network}}
+    source:
+      address: '{{address_lucksExecutor}}'
+      abi: LucksExecutor
+      startBlock: {{startBlock_lucksExecutor}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Task
+        - CancelEvent
+        - CloseEvent
+        - JoinEvent
+        - PickWinnerEvent
+        - ClaimEvent
+        - Ticket
+      abis:
+        - name: LucksExecutor
+          file: ./abis/LucksExecutor.json
+      eventHandlers:
+        - event: CreateTask(uint256,(address,uint16,address,uint256[],uint256[],address,uint8,uint256,uint256,uint256,uint256,uint16,(address,uint256),uint256,uint256),(uint16,string,string))
+          handler: handleCreateTask
+        - event: CancelTask(uint256,address)
+          handler: handleCancelTask
+        - event: CloseTask(uint256,address,uint8)
+          handler: handleCloseTask
+        - event: JoinTask(uint256,address,uint256,uint256,uint32,string)
+          handler: handleJoinTask
+        - event: PickWinner(uint256,address,uint32)
+          handler: handlePickWinner
+        - event: CreateTickets(uint256,address,uint32,uint32,uint32)
+          handler: handleCreateTickets         
+        - event: ClaimToken(uint256,address,uint256,address)     
+          handler: handleClaimToken          
+      file: ./src/mappings/lucksExecutor.ts
