@@ -39,6 +39,7 @@ type Task @entity {
 
   image: String
   media: [Media!]
+  claimed: Boolean!
 
   timestamp: BigInt!
   txHash: Bytes!
@@ -75,6 +76,7 @@ type UserJoinTask @entity {
   id: ID!
   user: User!
   task: Task!
+  claimed: Boolean!
   joins: [JoinEvent!]!
 }
 

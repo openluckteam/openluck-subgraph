@@ -63,7 +63,7 @@ export function handleCreateTask(event: CreateTask): void {
     task.finalNumber = 0;
     task.paymentStrategy = item.paymentStrategy;
     task.depositId = item.depositId;
-
+    task.claimed = false;
     task.timestamp = event.block.timestamp;
     task.txHash = event.transaction.hash;
 
@@ -131,6 +131,7 @@ export function handleJoinTask(event: JoinTask): void {
             evt.amount = event.params.amount;
             evt.count = event.params.count;
             evt.number = event.params.number.toI32();
+            evt.note = event.params.note;
             evt.timestamp = event.block.timestamp;
             evt.txHash = event.transaction.hash;
             evt.save();
@@ -231,5 +232,13 @@ export function handleClaimToken(event: ClaimToken): void {
             evt.txHash = event.transaction.hash;
             evt.save();
         }
+
+         // user joined tasks
+         let userJoinId = taskId + "-" +  event.params.caller.toHexString();
+         let userJoinTask = UserJoinTask.load(userJoinId);
+         if (userJoinTask) {
+            userJoinTask.claimed = true;
+            userJoinTask.save();
+         }
     }
 }
