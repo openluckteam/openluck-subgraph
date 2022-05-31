@@ -1,26 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "contract ILucksHelper",
-        "name": "_helper",
-        "type": "address"
-      },
-      {
-        "internalType": "uint16",
-        "name": "_chainId",
-        "type": "uint16"
-      },
-      {
-        "internalType": "bool",
-        "name": "_allowTask",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -37,6 +16,37 @@
       }
     ],
     "name": "CancelTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "nftContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "ClaimNFT",
     "type": "event"
   },
   {
@@ -243,24 +253,37 @@
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "num",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "start",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "end",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "CreateTickets",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
     "type": "event"
   },
   {
@@ -292,9 +315,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "number",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -342,12 +365,105 @@
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "number",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "PickWinner",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferFee",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferPayment",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferShareAmount",
     "type": "event"
   },
   {
@@ -378,7 +494,7 @@
   },
   {
     "inputs": [],
-    "name": "PROXY_NFT",
+    "name": "NFT",
     "outputs": [
       {
         "internalType": "contract IProxyNFTStation",
@@ -391,7 +507,7 @@
   },
   {
     "inputs": [],
-    "name": "PROXY_TOKEN",
+    "name": "TOKEN",
     "outputs": [
       {
         "internalType": "contract IProxyTokenStation",
@@ -424,6 +540,11 @@
           {
             "internalType": "bytes",
             "name": "dstNativeAddr",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "zroPaymentAddr",
             "type": "bytes"
           }
         ],
@@ -460,6 +581,11 @@
             "internalType": "bytes",
             "name": "dstNativeAddr",
             "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "zroPaymentAddr",
+            "type": "bytes"
           }
         ],
         "internalType": "struct lzTxObj",
@@ -469,7 +595,7 @@
     ],
     "name": "claimNFTs",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -508,6 +634,11 @@
             "internalType": "bytes",
             "name": "dstNativeAddr",
             "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "zroPaymentAddr",
+            "type": "bytes"
           }
         ],
         "internalType": "struct lzTxObj",
@@ -518,25 +649,6 @@
     "name": "closeTask",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "closeTime",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -686,6 +798,11 @@
             "internalType": "bytes",
             "name": "dstNativeAddr",
             "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "zroPaymentAddr",
+            "type": "bytes"
           }
         ],
         "internalType": "struct lzTxObj",
@@ -712,6 +829,55 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getChainId",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "lastTID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "closeTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "finalNo",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct TaskInfo",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -826,8 +992,74 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "infos",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "lastTID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "closeTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "finalNo",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "_chainId",
+        "type": "uint16"
+      },
+      {
+        "internalType": "bool",
+        "name": "_allowTask",
+        "type": "bool"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "isAllowTask",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isFail",
     "outputs": [
       {
         "internalType": "bool",
@@ -859,25 +1091,6 @@
     "name": "joinTask",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "lastTIDs",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -946,6 +1159,11 @@
           {
             "internalType": "bytes",
             "name": "dstNativeAddr",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "zroPaymentAddr",
             "type": "bytes"
           }
         ],
@@ -1122,9 +1340,9 @@
     "name": "ticketIds",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1138,17 +1356,17 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "tickets",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "number",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "internalType": "uint32",
@@ -1190,55 +1408,17 @@
         "type": "uint256"
       }
     ],
-    "name": "userClaimeds",
+    "name": "userState",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "num",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "userTickets",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "winTickets",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
+        "internalType": "bool",
+        "name": "claimed",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

@@ -8,7 +8,7 @@ import {
 } from "../../generated/schema";
 
 import {
-    CreateTask, CancelTask, CloseTask, JoinTask, ClaimToken, PickWinner, CreateTickets, JoinTaskCall
+    CreateTask, CancelTask, CloseTask, JoinTask, ClaimToken, ClaimNFT, PickWinner, CreateTickets
 } from "../../generated/LucksExecutor/LucksExecutor";
 
 enum TaskStatus {
@@ -57,10 +57,11 @@ export function handleCreateTask(event: CreateTask): void {
     task.targetAmount = item.targetAmount;
     task.price = item.price;
     task.amountCollected = BigInt.fromI32(0);
-  
+
     task.exclusiveToken = item.exclusiveToken.token;
     task.exclusiveAmount = item.exclusiveToken.amount;
-    task.finalNumber = 0;
+    task.finalNumber = BigInt.fromI32(0);
+    task.lastTicketId = BigInt.fromI32(0);
     task.paymentStrategy = item.paymentStrategy;
     task.depositId = item.depositId;
     task.claimed = false;
@@ -86,6 +87,8 @@ export function handleCancelTask(event: CancelTask): void {
 
             // update task
             task.status = TaskStatus.Cancel;
+            task.claimed = true;
+
             task.save();
         }
     }
@@ -107,6 +110,9 @@ export function handleCloseTask(event: CloseTask): void {
 
             // update task
             task.status = evt.status;
+            if (task.status == TaskStatus.Fail) {
+                task.claimed = true;
+            }
             task.save();
         }
     }
@@ -130,7 +136,7 @@ export function handleJoinTask(event: JoinTask): void {
             evt.buyer = event.params.buyer.toHexString();
             evt.amount = event.params.amount;
             evt.count = event.params.count;
-            evt.number = event.params.number.toI32();
+            evt.number = event.params.number;
             evt.note = event.params.note;
             evt.timestamp = event.block.timestamp;
             evt.txHash = event.transaction.hash;
@@ -138,7 +144,7 @@ export function handleJoinTask(event: JoinTask): void {
 
             // update task
             task.amountCollected = task.amountCollected.plus(evt.amount);
-            task.lastTicketId += evt.number;
+            task.lastTicketId = task.lastTicketId.plus(evt.number);
 
             task.save();
         }
@@ -149,12 +155,16 @@ export function handleJoinTask(event: JoinTask): void {
         if (!userJoinTask) {
             userJoinTask = new UserJoinTask(userJoinId);
             userJoinTask.user = buyer;
-            userJoinTask.task = taskId;    
+            userJoinTask.task = taskId;
             userJoinTask.joins = [joinId];
+            userJoinTask.tickets = event.params.count;
             userJoinTask.save();
         }
         else {
-            userJoinTask.joins.push(joinId);
+            let joins = userJoinTask.joins;
+            joins.push(joinId);
+            userJoinTask.joins = joins;
+            userJoinTask.tickets = userJoinTask.tickets.plus(event.params.count);
             userJoinTask.save();
         }
     }
@@ -169,7 +179,7 @@ export function handlePickWinner(event: PickWinner): void {
             evt = new PickWinnerEvent(taskId);
             evt.task = taskId;
             evt.winner = event.params.winner.toHexString();
-            evt.number = event.params.number.toI32();
+            evt.number = event.params.number;
             evt.timestamp = event.block.timestamp;
             evt.txHash = event.transaction.hash;
             evt.save();
@@ -206,9 +216,10 @@ export function handleCreateTickets(event: CreateTickets): void {
             ticket = new Ticket(ticketID);
             ticket.task = taskId;
             ticket.owner = event.params.buyer.toHexString();
-            ticket.number = number.toI32();
+            ticket.number = number;
             ticket.count = count;
             ticket.joinEvent = joinId;
+
             ticket.save();
         }
 
@@ -230,15 +241,44 @@ export function handleClaimToken(event: ClaimToken): void {
             evt.acceptToken = event.params.acceptToken;
             evt.timestamp = event.block.timestamp;
             evt.txHash = event.transaction.hash;
+
             evt.save();
         }
 
-         // user joined tasks
-         let userJoinId = taskId + "-" +  event.params.caller.toHexString();
-         let userJoinTask = UserJoinTask.load(userJoinId);
-         if (userJoinTask) {
+        // user joined tasks
+        let userJoinId = taskId + "-" + event.params.caller.toHexString();
+        let userJoinTask = UserJoinTask.load(userJoinId);
+        if (userJoinTask) {
             userJoinTask.claimed = true;
             userJoinTask.save();
-         }
+        }
+    }
+}
+
+export function handleClaimNFT(event: ClaimNFT): void {
+    //uint256 taskId, address seller, address nftContract, uint256[] tokenIds
+    let taskId = event.params.taskId.toString();
+    let task = Task.load(taskId);
+    if (task) {
+        let ID = taskId + "-" + event.params.seller.toHexString() + "-" + event.logIndex.toString();
+        let evt = ClaimEvent.load(ID);
+        if (!evt) {
+            evt = new ClaimEvent(ID);
+            evt.task = taskId;
+            evt.caller = event.params.seller.toHexString();
+            evt.amount = BigInt.fromI32(event.params.tokenIds.length);
+            evt.acceptToken = event.params.nftContract;
+            evt.timestamp = event.block.timestamp;
+            evt.txHash = event.transaction.hash;
+
+            evt.save();
+        }
+
+        // update task status
+        task.claimed = true;
+        if (task.status == TaskStatus.Open) {
+            task.status = TaskStatus.Fail;                       
+        }
+        task.save();
     }
 }

@@ -22,7 +22,7 @@
         "type": "bytes32"
       },
       {
-        "internalType": "contract ILucksExecutor",
+        "internalType": "address",
         "name": "_executor",
         "type": "address"
       }
@@ -100,29 +100,10 @@
         "internalType": "uint32",
         "name": "number",
         "type": "uint32"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "autoPickWinner",
-        "type": "bool"
       }
     ],
     "name": "RspRandomNumber",
     "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "autoPickWinner",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
   },
   {
     "inputs": [
@@ -147,7 +128,7 @@
     "name": "executor",
     "outputs": [
       {
-        "internalType": "contract ILucksExecutor",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -163,6 +144,25 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "randomResults",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -214,20 +214,45 @@
   {
     "inputs": [
       {
-        "internalType": "bool",
-        "name": "_enable",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
-    "name": "setAutoPickWinner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "requestToMaxNum",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "contract ILucksExecutor",
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestToTaskId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_executor",
         "type": "address"
       }
@@ -261,6 +286,25 @@
     "name": "setReqConfirmations",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "taskToRequestId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

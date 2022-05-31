@@ -11,7 +11,7 @@
 
     "prepare:testnet-bsc": "mustache config/testnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
     "create:testnet-bsc": "dotenv -- cross-var graph create openluck-testnet-bsc --node %TESTNET_NODE_BSC%",
-    "deploy:testnet-bsc": "dotenv -- cross-var graph deploy openluck-testnet-bsc --ipfs %TESTNET_IPFS% --node %TESTNET_NODE_BSC%"
+    "deploy:testnet-bsc": "dotenv -- cross-var graph deploy openluck-testnet-bsc-v1 --ipfs %TESTNET_IPFS% --node %TESTNET_NODE_BSC%"
 
   },
   "dependencies": {

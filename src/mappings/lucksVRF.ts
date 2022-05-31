@@ -40,8 +40,6 @@ export function handleRspRandomNumber(event: RspRandomNumber): void {
             evt.requestId = event.params.requestId;
             evt.randomness = event.params.randomness;
             evt.number = event.params.number;
-            evt.autoPickWinner = event.params.autoPickWinner;
-
             evt.timestamp = event.block.timestamp;
             evt.txHash = event.transaction.hash;
             evt.save();

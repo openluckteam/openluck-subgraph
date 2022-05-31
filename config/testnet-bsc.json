@@ -1,9 +1,9 @@
 {
   "network": "bnbTestnet",
-  "address_lucksExecutor": "0x486eB7D45626FDae26DE504fc24244F297290D1B",
-  "startBlock_lucksExecutor": 18972371,
-  "address_lucksGroup": "0x811ad7ce0077E26b09FF476258eF6F815c8FccFB",
-  "startBlock_lucksGroup": 18972387,
-  "address_lucksVRF": "0x12230C33785A3b9a58eeeAE08eA527c0fC4E7c91",
-  "startBlock_lucksVRF": 18972394
+  "address_lucksExecutor": "0x51f57486f8b09df7b37ee78821e19d566b8ded3d",
+  "startBlock_lucksExecutor": 19750693,
+  "address_lucksGroup": "0xF71293ef83730Fa0b48668f85981611E111A81Dd",
+  "startBlock_lucksGroup": 19705545,
+  "address_lucksVRF": "0xA39D630eFE179f65676129b8eEcf605B7b8e909b",
+  "startBlock_lucksVRF": 19746185
 }

@@ -26,8 +26,8 @@ type Task @entity {
   exclusiveToken: Bytes!
   exclusiveAmount: BigInt!
 
-  finalNumber: Int
-  lastTicketId: Int
+  finalNumber: BigInt!
+  lastTicketId: BigInt!
 
   paymentStrategy: Int
   depositId: BigInt
@@ -50,7 +50,7 @@ type _Schema_
     name: "taskSearch"
     language: en
     algorithm: rank
-    include: [{ entity: "Task", fields: [{ name: "title" }] }]
+    include: [{ entity: "Task", fields: [{ name: "title" }, { name: "id"}] }]
   )
 
 type User @entity {
@@ -67,7 +67,7 @@ type Ticket @entity {
   id: ID!
   task: Task!
   owner: User!
-  number: Int! 
+  number: BigInt! 
   count: Int! 
   joinEvent: JoinEvent
 }
@@ -77,6 +77,7 @@ type UserJoinTask @entity {
   user: User!
   task: Task!
   claimed: Boolean!
+  tickets: BigInt!
   joins: [JoinEvent!]!
 }
 
@@ -105,7 +106,7 @@ type JoinEvent @entity {
   buyer: User!
   amount: BigInt!
   count: BigInt!
-  number: Int!
+  number: BigInt!
   note: String
   ticket: Ticket @derivedFrom(field: "joinEvent")
   timestamp: BigInt!
@@ -133,7 +134,7 @@ type PickWinnerEvent @entity {
   id: ID!
   task: Task!
   winner: User!
-  number: Int!  
+  number: BigInt!  
   timestamp: BigInt!
   txHash: Bytes!
 }

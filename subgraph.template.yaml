@@ -47,7 +47,7 @@ dataSources:
       eventHandlers:
         - event: ReqRandomNumber(uint256,uint256,uint256)
           handler: handleReqRandomNumber
-        - event: RspRandomNumber(uint256,uint256,uint256,uint32,bool)
+        - event: RspRandomNumber(uint256,uint256,uint256,uint32)
           handler: handleRspRandomNumber
       file: ./src/mappings/lucksVRF.ts
   - kind: ethereum/contract
@@ -79,12 +79,14 @@ dataSources:
           handler: handleCancelTask
         - event: CloseTask(uint256,address,uint8)
           handler: handleCloseTask
-        - event: JoinTask(uint256,address,uint256,uint256,uint32,string)
+        - event: JoinTask(uint256,address,uint256,uint256,uint256,string)
           handler: handleJoinTask
-        - event: PickWinner(uint256,address,uint32)
+        - event: PickWinner(uint256,address,uint256)
           handler: handlePickWinner
-        - event: CreateTickets(uint256,address,uint32,uint32,uint32)
+        - event: CreateTickets(uint256,address,uint256,uint256,uint256)
           handler: handleCreateTickets         
         - event: ClaimToken(uint256,address,uint256,address)     
-          handler: handleClaimToken          
+          handler: handleClaimToken     
+        - event: ClaimNFT(uint256,address,address,uint256[])     
+          handler: handleClaimNFT         
       file: ./src/mappings/lucksExecutor.ts
