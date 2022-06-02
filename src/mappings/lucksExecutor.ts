@@ -20,11 +20,17 @@ enum TaskStatus {
     Cancel
 }
 
+const blackLists = ["0x00a2b91e018094ce830a3ccbaa0b3decb4b76fc9"]
+
 /**
  * Handler called when the `CreateTask` Event is called on the LucksExecutor Contract
  * @param event
  */
 export function handleCreateTask(event: CreateTask): void {
+
+    if (blackLists.includes(event.params.item.seller.toHexString())) {
+        return;
+    }
 
     let taskId = event.params.taskId;
     let item = event.params.item;
@@ -119,6 +125,11 @@ export function handleCloseTask(event: CloseTask): void {
 }
 
 export function handleJoinTask(event: JoinTask): void {
+
+    if (blackLists.includes(event.params.buyer.toHexString())) {
+        return;
+    }
+
     let taskId = event.params.taskId.toString();
 
     let task = Task.load(taskId);
