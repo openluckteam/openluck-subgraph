@@ -1,5 +1,5 @@
 {
-  "network": "bnbTestnet",
+  "network": "chapel",
 
   "address_lucksExecutor": "0x51f57486f8b09df7b37ee78821e19d566b8ded3d",
   "startBlock_lucksExecutor": 19750693,

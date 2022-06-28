@@ -63,6 +63,7 @@ export function handleCreateTask(event: CreateTask): void {
     task.targetAmount = item.targetAmount;
     task.price = item.price;
     task.amountCollected = BigInt.fromI32(0);
+    task.progress = BigInt.fromI32(0);
 
     task.exclusiveToken = item.exclusiveToken.token;
     task.exclusiveAmount = item.exclusiveToken.amount;
@@ -156,6 +157,7 @@ export function handleJoinTask(event: JoinTask): void {
             // update task
             task.amountCollected = task.amountCollected.plus(evt.amount);
             task.lastTicketId = task.lastTicketId.plus(evt.number);
+            task.progress = task.amountCollected.div(task.targetAmount);       
 
             task.save();
         }

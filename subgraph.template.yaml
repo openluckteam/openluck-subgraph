@@ -90,3 +90,43 @@ dataSources:
         - event: ClaimNFT(uint256,address,address,uint256[])     
           handler: handleClaimNFT         
       file: ./src/mappings/lucksExecutor.ts
+  - kind: ethereum/contract
+    name: LucksAutoCloseTask
+    network: {{network}}
+    source:
+      address: '{{address_lucksAutoCloseTask}}'
+      abi: LucksAutoCloseTask
+      startBlock: {{startBlock_lucksAutoCloseTask}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AutoCloseFail
+      abis:
+        - name: LucksAutoCloseTask
+          file: ./abis/LucksAutoCloseTask.json
+      eventHandlers:
+        - event: RevertInvoke(uint256,string)
+          handler: handleRevertInvoke
+      file: ./src/mappings/lucksAutoCloseTask.ts
+  - kind: ethereum/contract
+    name: LucksAutoDrawTask
+    network: {{network}}
+    source:
+      address: '{{address_lucksAutoDrawTask}}'
+      abi: LucksAutoDrawTask
+      startBlock: {{startBlock_lucksAutoDrawTask}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AutoDrawFail
+      abis:
+        - name: LucksAutoDrawTask
+          file: ./abis/LucksAutoDrawTask.json
+      eventHandlers:
+        - event: RevertInvoke(uint256,string)
+          handler: handleRevertInvoke
+      file: ./src/mappings/lucksAutoDrawTask.ts

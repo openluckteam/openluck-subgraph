@@ -40,6 +40,7 @@ type Task @entity {
   image: String
   media: [Media!]
   claimed: Boolean!
+  progress: BigInt!
 
   timestamp: BigInt!
   txHash: Bytes!
@@ -188,4 +189,20 @@ type Price @entity {
   chainId: Int!
   token: String!
   price: BigInt!
+}
+
+type AutoCloseFail @entity {
+  id: ID!
+  task: Task!
+  reason: String
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type AutoDrawFail @entity {
+  id: ID!
+  task: Task!
+  reason: String
+  timestamp: BigInt!
+  txHash: Bytes!
 }

@@ -6,9 +6,11 @@
     "codegen": "graph codegen",
 
     "prepare:bsc": "mustache config/mainnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",
-    "init:bsc": "yarn prepare:bnb && graph init --product --network bnb hosted-service openluckteam/Openluck",
-    "deploy:bsc": "dotenv -- cross-var graph auth --product hosted-service %THEGRAPH_TOKEN_BSC% && graph deploy --product --network bnb hosted-service openluckteam/Openluck",
+    "deploy:bsc": "dotenv -- cross-var graph auth --product hosted-service %THEGRAPH_TOKEN_BSC% && graph deploy --product hosted-service openluckteam/Openluck",
 
+    "prepare:chapel": "mustache config/testnet-chapel.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
+    "deploy:chapel": "dotenv -- cross-var graph auth --product hosted-service %THEGRAPH_TOKEN_BSC% && graph deploy --product hosted-service openluckteam/Openluckdev",
+    
     "prepare:testnet-bsc": "mustache config/testnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
     "create:testnet-bsc": "dotenv -- cross-var graph create openluck-testnet-bsc --node %TESTNET_NODE_BSC%",
     "deploy:testnet-bsc": "dotenv -- cross-var graph deploy openluck-testnet-bsc-v1 --ipfs %TESTNET_IPFS% --node %TESTNET_NODE_BSC%"
