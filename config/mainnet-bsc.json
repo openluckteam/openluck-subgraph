@@ -1,9 +1,18 @@
 {
   "network": "bsc",
-  "address_lucksExecutor": "",
-  "startBlock_lucksExecutor": 0,
-  "address_lucksGroup": "",
-  "startBlock_lucksGroup": 0,
-  "address_lucksVRF": "",
-  "startBlock_lucksVRF": 0
+  
+  "address_lucksExecutor": "0xd667Ae0B67A1f3b92F2dF1219C2C501FECF306bF",
+  "startBlock_lucksExecutor": 19282277,
+
+  "address_lucksGroup": "0x85C8c8E11aCa93ac7C4e3b5beEf10fA803Bb19b1",
+  "startBlock_lucksGroup": 19310509,
+
+  "address_lucksVRF": "0xf7EB63DC84044C0aa080c3fdA14c778Ec74a6E83",
+  "startBlock_lucksVRF": 19282314,
+
+  "address_lucksAutoCloseTask": "0x2059E9DdCc64148B5E33220928953b2A31EF4635",
+  "startBlock_lucksAutoCloseTask": 19308808,
+
+  "address_lucksAutoDrawTask": "0xDDF825FC7741a1a043C9157927494b9C60811E48",
+  "startBlock_lucksAutoDrawTask": 19308817
 }
