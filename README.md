@@ -1,7 +1,7 @@
 # OpenLuck Subgraph
 
-- Mainnet-BSC: https://thegraph.com/explorer/subgraph?id=
-- Testnet-BSC: https://graph.openluck.org/api/v1testnet/graphql
+- Mainnet-BSC: https://thegraph.com/hosted-service/subgraph/openluckteam/openluck
+- Testnet-BSC: https://thegraph.com/hosted-service/subgraph/openluckteam/openluckdev
 
 ### Install
 
