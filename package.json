@@ -11,14 +11,16 @@
     "prepare:chapel": "mustache config/testnet-chapel.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
     "deploy:chapel": "dotenv -- cross-var graph auth --product hosted-service %THEGRAPH_TOKEN_BSC% && graph deploy --product hosted-service openluckteam/Openluckdev",
     
-    "prepare:testnet-bsc": "mustache config/testnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
-    "create:testnet-bsc": "dotenv -- cross-var graph create openluck-testnet-bsc --node %TESTNET_NODE_BSC%",
-    "deploy:testnet-bsc": "dotenv -- cross-var graph deploy openluck-testnet-bsc-v1 --ipfs %TESTNET_IPFS% --node %TESTNET_NODE_BSC%",
+    "prepare:node-bsc-testnet": "mustache config/testnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
+    "create:node-bsc-testnet": "dotenv -- cross-var graph create openluck-bsc-testnet --node %GRAPH_NODE_BSC_TESTNET%",
+    "deploy:node-bsc-testnet": "dotenv -- cross-var graph deploy openluck-bsc-testnet --ipfs %GRAPH_IPFS% --node %GRAPH_NODE_BSC_TESTNET%",
 
     "prepare:node-bsc": "mustache config/mainnet-bsc.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
     "create:node-bsc": "dotenv -- cross-var graph create openluck-bsc --node %GRAPH_NODE_BSC%",
-    "deploy:node-bsc": "dotenv -- cross-var graph deploy openluck-bsc --ipfs %GRAPH_IPFS% --node %GRAPH_NODE_BSC%"
+    "deploy:node-bsc": "dotenv -- cross-var graph deploy openluck-bsc --ipfs %GRAPH_IPFS% --node %GRAPH_NODE_BSC%",
 
+    "prepare:test-polygon": "mustache config/testnet-polygon.json subgraph.template.yaml > subgraph.yaml && yarn codegen",    
+    "deploy:test-polygon": "dotenv -- cross-var graph auth --product hosted-service %THEGRAPH_TOKEN_BSC% && graph deploy --product hosted-service openluckteam/Polygondev"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.22.1",

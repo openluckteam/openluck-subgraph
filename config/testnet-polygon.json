@@ -1,9 +1,18 @@
 {
   "network": "mumbai",
-  "address_lucksExecutor": "",
-  "startBlock_lucksExecutor": 0,
-  "address_lucksGroup": "",
-  "startBlock_lucksGroup": 0,
-  "address_lucksVRF": "",
-  "startBlock_lucksVRF": 0
+
+  "address_lucksExecutor": "0x897be0747988558c507aF3fd1e07d55c74EfadE8",
+  "startBlock_lucksExecutor": 27178328,
+
+  "address_lucksGroup": "0x14f50cA151DEBA66526Fc2854E4E5fFe4866e788",
+  "startBlock_lucksGroup": 27178474,
+
+  "address_lucksVRF": "0xe6B847179B7ad642ff26D376F7cF0f36297e5e04",
+  "startBlock_lucksVRF": 27178479,
+
+  "address_lucksAutoCloseTask": "0x7B3a23f69f5548E7eEFb57F613027c4252f52366",
+  "startBlock_lucksAutoCloseTask": 27178481,
+
+  "address_lucksAutoDrawTask": "0x4a616a03064770C3b269b4e165F46AF4F36d3a16",
+  "startBlock_lucksAutoDrawTask": 27178483
 }
