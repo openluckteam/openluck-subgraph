@@ -1,9 +1,17 @@
 {
   "network": "matic",
-  "address_lucksExecutor": "",
-  "startBlock_lucksExecutor": 0,
-  "address_lucksGroup": "",
-  "startBlock_lucksGroup": 0,
-  "address_lucksVRF": "",
-  "startBlock_lucksVRF": 0
+  "address_lucksExecutor": "0x95077DaaeA7d45A5D44eD269ec142E78aA13153b",
+  "startBlock_lucksExecutor": 31689536,
+
+  "address_lucksGroup": "0xe6B847179B7ad642ff26D376F7cF0f36297e5e04",
+  "startBlock_lucksGroup": 31689556,
+
+  "address_lucksVRF": "0x4a616a03064770C3b269b4e165F46AF4F36d3a16",
+  "startBlock_lucksVRF": 31689560,
+
+  "address_lucksAutoCloseTask": "0xd667Ae0B67A1f3b92F2dF1219C2C501FECF306bF",
+  "startBlock_lucksAutoCloseTask": 31689564,
+
+  "address_lucksAutoDrawTask": "0xb0b6312e68D02437911E02E52DFC49Dc9a762449",
+  "startBlock_lucksAutoDrawTask": 31689568
 }
