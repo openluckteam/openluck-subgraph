@@ -1,7 +1,9 @@
 # OpenLuck Subgraph
 
-- Mainnet-BSC: https://thegraph.com/hosted-service/subgraph/openluckteam/openluck
-- Testnet-BSC: https://thegraph.com/hosted-service/subgraph/openluckteam/openluckdev
+  - "bsc": "https://api.thegraph.com/subgraphs/name/openlucklab/bnb"
+  - "bsc-testnet": "https://api.thegraph.com/subgraphs/name/openlucklab/bnbdev"
+  - "polygon": "https://api.thegraph.com/subgraphs/name/openlucklab/polygon"
+  - "polygon-testnet":"https://api.thegraph.com/subgraphs/name/openlucklab/polygondev"
 
 ### Install
 
